@@ -18,18 +18,14 @@ get source code
 git clone https://github.com/vim/vim.git
 ```
 
-make binary
+make & install binary
 
 ```
 cd vim/src
 make
-```
-tips: Uncomment line `CONF_OPT_GUI = --disable-gui` in Makefile if you do not want GUI.
-
-install 
-```
 cp -f ./vim /usr/bin/
 ```
+tips: Uncomment line `CONF_OPT_GUI = --disable-gui` in Makefile if you do not want GUI.
 
 ## Configuration
 
