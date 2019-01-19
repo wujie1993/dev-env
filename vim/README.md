@@ -1,4 +1,4 @@
-# vim develeop environment
+# VIM development environment
 
 ## Installation
 
@@ -16,3 +16,5 @@ vim ~/.vimrc
 ```
 :PluginInstall
 ```
+
+4. reload vim
