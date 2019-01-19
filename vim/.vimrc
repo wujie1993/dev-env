@@ -3,6 +3,7 @@ syntax on
 set softtabstop=2
 set tabstop=2
 set expandtab
+set backspace=2
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()

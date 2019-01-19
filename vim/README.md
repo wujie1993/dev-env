@@ -1,6 +1,37 @@
 # VIM development environment
 
+# Requirement
+
+OS: CentOS 7
+
 ## Installation
+
+install requirement packages
+
+```
+yum install -y gcc git ncurses-devel
+```
+
+get source code
+
+```
+git clone https://github.com/vim/vim.git
+```
+
+make binary
+
+```
+cd vim/src
+make
+```
+tips: Uncomment line `CONF_OPT_GUI = --disable-gui` in Makefile if you do not want GUI.
+
+install 
+```
+cp -f ./vim /usr/bin/
+```
+
+## Configuration
 
 1. copy .vimrc to home directory
 ```
