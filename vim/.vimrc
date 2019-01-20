@@ -15,6 +15,9 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'fatih/vim-go'
+" Plugin 'Valloric/YouCompleteMe' 
+" Plugin 'vim-syntastic/syntastic'
+" Plugin 'rjohnsondev/vim-compiler-go'
 Plugin 'majutsushi/tagbar'
 Plugin 'fatih/molokai'
 " Plugin 'Shougo/neocomplete.vim'
@@ -45,8 +48,11 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+autocmd BufWritePost,FileWritePost *.go execute 'GoMetaLinter'
+" autocmd BufWritePost,FileWritePost *.go execute 'GoVet'
 
 " tagbar
+autocmd vimenter * TagbarToggle
 nmap <F8> :TagbarToggle<CR>
 
 " neocomplete
