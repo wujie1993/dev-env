@@ -9,7 +9,7 @@ OS: CentOS 7
 install requirement packages
 
 ```
-yum install -y gcc git ncurses-devel
+yum install -y gcc git ncurses-devel ctags
 ```
 
 get source code
