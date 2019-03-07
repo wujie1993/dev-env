@@ -1,3 +1,26 @@
+set number
+syntax on
+"set softtabstop=2
+"set tabstop=2
+set expandtab
+set backspace=2
+set incsearch
+set hlsearch
+set autowrite
+set nobackup
+set noswapfile
+" code fold by indent
+set fdm=indent
+
+" This enables us to undo files even if you exit Vim.
+if has('persistent_undo')
+  set undofile
+  set undodir=~/.config/vim/tmp/undo//
+endif
+
+" Use space to close and open code fold
+nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -13,30 +36,8 @@ Plugin 'fatih/molokai'
 " Plugin 'Shougo/neocomplete.vim'
 
 call vundle#end()
-
-set number
-set softtabstop=2
-set tabstop=2
-set expandtab
-set backspace=2
-set incsearch
-set hlsearch
-set autowrite
-set noswapfile
-set nobackup
-set fdm=syntax
 filetype plugin indent on
 filetype plugin on
-
-" This enables us to undo files even if you exit Vim.
-if has('persistent_undo')
-  set undofile
-  set undodir=~/.config/vim/tmp/undo//
-endif
-
-" tagbar
-" autocmd vimenter * TagbarToggle
-nmap <F8> :TagbarToggle<CR>
 
 " nerdtree conf
 let NERDTreeShowHidden=1
@@ -60,11 +61,13 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_metalinter_autosave = 1
-let g:go_auto_type_info = 1
-let g:go_auto_sameids = 1
-autocmd BufWritePost,FileWritePost *.go execute 'GoMetaLinter'
-" autocmd BufWritePost,FileWritePost *.go execute 'GoVet'
+"autocmd BufWritePost,FileWritePost *.go execute 'GoMetaLinter'
+"autocmd BufNewFile,BufRead *.go setlocal noet ts=2 sw=2 sts=2
+"autocmd BufWritePost,FileWritePost *.go execute 'GoVet'
+
+" tagbar
+"autocmd vimenter * TagbarToggle
+nmap <F8> :TagbarToggle<CR>
 
 " neocomplete
 " let g:neocomplete#enable_at_startup = 1
