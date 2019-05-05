@@ -12,8 +12,6 @@ yum install -y gcc git ncurses-devel ctags ruby ruby-devel lua lua-devel luajit 
 mkdir -p ~/go/src/github.com/vim/vim
 git clone https://github.com/vim/vim.git ~/go/src/github.com/vim/vim
 
-
-
 # config,build and install
 cd ~/go/src/github.com/vim/vim
 sed -i 's/^# CONF_OPT_GUI.*/CONF_OPT_GUI = --disable-gui/' ./src/Makefile
