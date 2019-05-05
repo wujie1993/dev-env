@@ -6,6 +6,14 @@ OS: CentOS 7
 
 ## Installation
 
+setup epel repo
+
+```
+yum install epel-release -y
+```
+
+install python3
+
 install requirement packages
 
 ```
@@ -34,7 +42,7 @@ cd vim
             --prefix=/usr/local
 make VIMRUNTIMEDIR=/usr/local/share/vim/vim81 && make install
 ```
-tips: Uncomment line `CONF_OPT_GUI = --disable-gui` in Makefile if you do not want GUI.
+tips: Uncomment line `CONF_OPT_GUI = --disable-gui` in src/Makefile if you do not want GUI.
 
 ## Configuration
 
