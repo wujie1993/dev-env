@@ -51,14 +51,20 @@ tips: Uncomment line `CONF_OPT_GUI = --disable-gui` in src/Makefile if you do no
 cp -f vim/.vimrc ~/.vimrc
 ```
 
-2. open vim editor
+2. install vundle
+
+```
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```
+
+3 open vim editor
 ```
 vim ~/.vimrc
 ```
 
-3. install plugin
+4. install plugin
 ```
 :PluginInstall
 ```
 
-4. reload vim
+5. reopen vim
