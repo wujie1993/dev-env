@@ -9,7 +9,7 @@ yum install -y epel-release
 yum install -y gcc git ncurses-devel ctags ruby ruby-devel lua lua-devel luajit luajit-devel ctags git python python-devel tcl-devel perl perl-devel perl-ExtUtils-ParseXS perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-Embed
 
 # download vim source code
-mkdir -p ~/go/src/github.com/vim/vim
+mkdir -p $GOPATH/src/github.com/vim/vim
 git clone https://github.com/vim/vim.git ~/go/src/github.com/vim/vim
 
 # config,build and install
@@ -33,3 +33,9 @@ cp -f vim/.vimrc ~/.vimrc
 
 # install vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+# get go tools
+mkdir -p $GOPATH/src/golang.org/x
+git clone git@github.com:golang/net.git $GOPATH/src/golang.org/x/net
+git clone git@github.com:golang/sync.git $GOPATH/src/golang.org/x/sync
+git clone git@github.com:golang/tools.git $GOPATH/src/golang.org/x/tools
