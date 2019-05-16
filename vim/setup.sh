@@ -28,8 +28,7 @@ sed -i 's/^# CONF_OPT_GUI.*/CONF_OPT_GUI = --disable-gui/' ./src/Makefile
 make VIMRUNTIMEDIR=/usr/local/share/vim/vim81 && make install
 
 # copy .vimrc
-cd $BASE_DIR
-cp -f vim/.vimrc ~/.vimrc
+cp -f $BASE_DIR/.vimrc ~/.vimrc
 
 # install vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
