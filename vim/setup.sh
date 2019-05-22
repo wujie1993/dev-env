@@ -38,3 +38,5 @@ mkdir -p $GOPATH/src/golang.org/x
 git clone git@github.com:golang/net.git $GOPATH/src/golang.org/x/net
 git clone git@github.com:golang/sync.git $GOPATH/src/golang.org/x/sync
 git clone git@github.com:golang/tools.git $GOPATH/src/golang.org/x/tools
+git clone git@github.com:golang/lint.git $GOPATH/src/golang.org/x/lint
+go install golang.org/x/lint/golint
