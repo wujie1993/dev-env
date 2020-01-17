@@ -36,6 +36,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'fatih/molokai'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-fugitive'
 " Plugin 'Shougo/neocomplete.vim'
 
 call vundle#end()
