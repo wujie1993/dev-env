@@ -9,13 +9,13 @@ OS: CentOS 7
 1. run setup script
 
 ```bash
-./setup.sh
+./vim.sh
 ```
 
 2. open vim editor
 
 ```bash
-vim ~/.vimrc
+vim
 ```
 
 3. install plugin

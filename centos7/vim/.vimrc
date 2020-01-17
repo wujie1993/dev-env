@@ -11,6 +11,7 @@ set nobackup
 set noswapfile
 " code fold by indent
 set fdm=indent
+set pastetoggle=<F9>
 
 " This enables us to undo files even if you exit Vim.
 if has('persistent_undo')
@@ -33,6 +34,8 @@ Plugin 'fatih/vim-go'
 " Plugin 'rjohnsondev/vim-compiler-go'
 Plugin 'majutsushi/tagbar'
 Plugin 'fatih/molokai'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'Shougo/neocomplete.vim'
 
 call vundle#end()
@@ -41,18 +44,19 @@ filetype plugin on
 
 " nerdtree conf
 let NERDTreeShowHidden=1
-autocmd vimenter * NERDTree
+silent! autocmd VimEnter * NERDTree
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+silent! autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+silent! autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+nmap <F7> :NERDTree<CR>
 
-" molokai conf
+" molokai
 syntax enable
 set t_Co=256
 let g:rehash256 = 1
 let g:molokai_original = 1
-colorscheme molokai
+silent! colorscheme molokai
 
 " vim-go
 let g:go_list_type = "quickfix"
@@ -66,7 +70,7 @@ let g:go_highlight_build_constraints = 1
 "autocmd BufWritePost,FileWritePost *.go execute 'GoVet'
 
 " tagbar
-"autocmd vimenter * TagbarToggle
+silent! autocmd VimEnter * TagbarToggle
 nmap <F8> :TagbarToggle<CR>
 
 " neocomplete

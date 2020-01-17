@@ -1,4 +1,4 @@
-#bin/sh
+#!/bin/sh
 
 BASE_DIR=$(pwd)
 
@@ -6,11 +6,11 @@ BASE_DIR=$(pwd)
 yum install -y epel-release
 
 # install requirement packages
-yum install -y gcc git ncurses-devel ctags ruby ruby-devel lua lua-devel luajit luajit-devel ctags git python python-devel tcl-devel perl perl-devel perl-ExtUtils-ParseXS perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-Embed
+yum install -y gcc make git ncurses-devel ctags ruby ruby-devel lua lua-devel luajit luajit-devel ctags git python python-devel tcl-devel perl perl-devel perl-ExtUtils-ParseXS perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-Embed
 
 # download vim source code
 mkdir -p $GOPATH/src/github.com/vim/vim
-git clone https://github.com/vim/vim.git ~/go/src/github.com/vim/vim
+git clone --single-branch --branch v8.2.0119 https://github.com/vim/vim.git ~/go/src/github.com/vim/vim
 
 # config,build and install
 cd ~/go/src/github.com/vim/vim
@@ -25,7 +25,7 @@ sed -i 's/^# CONF_OPT_GUI.*/CONF_OPT_GUI = --disable-gui/' ./src/Makefile
             --enable-gui=gtk2 \
             --enable-cscope \
             --prefix=/usr/local
-make VIMRUNTIMEDIR=/usr/local/share/vim/vim81 && make install
+make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
 
 # copy .vimrc
 cp -f $BASE_DIR/.vimrc ~/.vimrc
@@ -35,8 +35,12 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # get go tools
 mkdir -p $GOPATH/src/golang.org/x
-git clone git@github.com:golang/net.git $GOPATH/src/golang.org/x/net
-git clone git@github.com:golang/sync.git $GOPATH/src/golang.org/x/sync
-git clone git@github.com:golang/tools.git $GOPATH/src/golang.org/x/tools
-git clone git@github.com:golang/lint.git $GOPATH/src/golang.org/x/lint
+git clone https://github.com/golang/net.git $GOPATH/src/golang.org/x/net
+git clone https://github.com/golang/sync.git $GOPATH/src/golang.org/x/sync
+git clone https://github.com/golang/tools.git $GOPATH/src/golang.org/x/tools
+git clone https://github.com/golang/lint.git $GOPATH/src/golang.org/x/lint
 go install golang.org/x/lint/golint
+
+# install vim plugins
+vim -s $BASE_DIR/install.vimscript
+# vim +PlugInstall +GoInstallBinaries +qall > /dev/null
