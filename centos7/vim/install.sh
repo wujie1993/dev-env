@@ -2,6 +2,8 @@
 
 VIM_DIR=$(pwd)
 
+source /etc/profile
+
 # install epel-release
 yum install -y epel-release
 
