@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BASE_DIR=$(pwd)
+VIM_DIR=$(pwd)
 
 # install epel-release
 yum install -y epel-release
@@ -28,7 +28,7 @@ sed -i 's/^# CONF_OPT_GUI.*/CONF_OPT_GUI = --disable-gui/' ./src/Makefile
 make VIMRUNTIMEDIR=/usr/local/share/vim/vim82 && make install
 
 # copy .vimrc
-cp -f $BASE_DIR/.vimrc ~/.vimrc
+cp -f $VIM_DIR/.vimrc ~/.vimrc
 
 # install vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -42,5 +42,5 @@ git clone https://github.com/golang/lint.git $GOPATH/src/golang.org/x/lint
 go install golang.org/x/lint/golint
 
 # install vim plugins
-vim -s $BASE_DIR/install.vimscript
+vim -s $VIM_DIR/install.vimscript
 # vim +PlugInstall +GoInstallBinaries +qall > /dev/null
