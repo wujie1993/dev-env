@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# configs
+HTTP_PROXY=""
+
 BASE_DIR=$(pwd)
 DRY_RUN=false
 
@@ -40,6 +43,20 @@ setup_golang(){
         echo $golang_prefix end setup
 }
 
+setup_git(){
+        git_prefix="[git]"
+        echo "---"
+        echo $git_prefix start setup
+
+        # set git proxy
+	if [ ! -z $HTTP_PROXY ]; then
+        	execute $git_prefix "git config --global http.proxy $HTTP_PROXY"
+       		execute $git_prefix "git config --global https.proxy $HTTP_PROXY"
+	fi
+        
+        echo $git_prefix end setup
+}
+
 setup_podman(){
         podman_prefix="[podman]"
         echo "---"
@@ -48,8 +65,12 @@ setup_podman(){
         execute $podman_prefix ". /etc/os-release"
         execute $podman_prefix "echo 'deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
         execute $podman_prefix "curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/Release.key | apt-key add -"
-        execute $podman_prefix "apt-get update -qq"
-        execute $podman_prefix "apt-get -qq -y install podman"
+        execute $podman_prefix "apt-get update"
+	apt_params=""
+	if [ ! -z $HTTP_PROXY ]; then
+        	apt_params="-o Acquire::http::proxy="$HTTP_PROXY
+	fi
+        execute $podman_prefix "apt-get -y $apt_params install podman"
         execute $podman_prefix "cp podman/registries.conf /etc/containers/registries.conf"
 
         echo $podman_prefix end setup
@@ -80,7 +101,8 @@ main(){
         setup_apt
         setup_golang
         setup_podman
+	setup_git
         setup_vim
 }
 
-main
+main 
