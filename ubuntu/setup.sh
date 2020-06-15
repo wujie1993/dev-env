@@ -13,9 +13,9 @@ setup_vim(){
 
         # install vundle
         execute $vim_prefix "apt-get install ctags"
-        execute $vim_prefix "git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
-        execute $vim_prefix "cp vim/.vimrc ~/.vimrc"
-        execute $vim_prefix "vim +PluginInstall +GoInstallBinaries +qall > /dev/null"
+        execute $vim_prefix "git clone https://github.com/VundleVim/Vundle.vim.git /home/$SUDO_USER/.vim/bundle/Vundle.vim"
+        execute $vim_prefix "cp vim/.vimrc /home/$SUDO_USER/.vimrc"
+        execute $vim_prefix "sudo -u $SUDO_USER vim +PluginInstall +GoInstallBinaries +qall > /dev/null"
 
         echo $vim_prefix end setup
 }
@@ -40,6 +40,9 @@ setup_golang(){
         # install golang by apt
         execute $golang_prefix "apt install golang-go -y"
         execute $golang_prefix "go env -w GOPROXY=https://goproxy.io,direct"
+        lineinfile "export GOPATH=/home/$SUDO_USER/go" "/home/$SUDO_USER/.bashrc"
+        lineinfile "export PATH="'$PATH'":/home/$SUDO_USER/go/bin" "/home/$SUDO_USER/.bashrc"
+        echo $golang_prefix please relogin
         
         echo $golang_prefix end setup
 }
@@ -51,8 +54,8 @@ setup_git(){
 
         # set git proxy
 	if [ ! -z $HTTP_PROXY ]; then
-        	execute $git_prefix "git config --global http.proxy $HTTP_PROXY"
-       		execute $git_prefix "git config --global https.proxy $HTTP_PROXY"
+        	execute $git_prefix "sudo -u $SUDO_USER git config --global http.proxy $HTTP_PROXY"
+       		execute $git_prefix "sudo -u $SUDO_USER git config --global https.proxy $HTTP_PROXY"
 	fi
         
         echo $git_prefix end setup
@@ -102,9 +105,9 @@ execute(){
 # $2 file path
 lineinfile(){
         if ! cat $2 > /dev/null; then
-                echo $1 >> $2
-        elif ! grep $1 $2 > /dev/null; then
-                sed -i '$a '$1 $2
+                echo "$1" >> $2
+        elif ! grep "$1" $2 > /dev/null; then
+                sed -i '$a '"$1" $2
         fi
 }
 
