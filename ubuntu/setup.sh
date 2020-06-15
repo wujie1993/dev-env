@@ -76,6 +76,16 @@ setup_podman(){
         echo $podman_prefix end setup
 }
 
+setup_tools(){
+        tools_prefix="[tools]"
+        echo "---"
+        echo $tools_prefix start setup
+
+        execute $tools_prefix "apt install cloc zsh"
+
+        echo $tools_prefix end setup
+}
+
 # execute command with log output
 # $1 the prefix text
 # $2 the command
@@ -99,6 +109,7 @@ lineinfile(){
 
 main(){
         setup_apt
+	setup_tools
         setup_golang
         setup_podman
 	setup_git
