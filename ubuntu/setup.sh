@@ -14,6 +14,7 @@ setup_vim(){
         # install vundle
         execute $vim_prefix "apt-get install ctags"
         execute $vim_prefix "git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
+        execute $vim_prefix "cp vim/.vimrc ~/.vimrc"
         execute $vim_prefix "vim +PluginInstall +GoInstallBinaries +qall > /dev/null"
 
         echo $vim_prefix end setup
