@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # configs
-HTTP_PROXY=""
 
 BASE_DIR=$(pwd)
 DRY_RUN=false
@@ -12,10 +11,10 @@ setup_vim(){
         echo $vim_prefix start setup
 
         # install vundle
-        execute $vim_prefix "apt-get install ctags"
-        execute $vim_prefix "git clone https://github.com/VundleVim/Vundle.vim.git /home/$SUDO_USER/.vim/bundle/Vundle.vim"
-        execute $vim_prefix "cp vim/.vimrc /home/$SUDO_USER/.vimrc"
-        execute $vim_prefix "sudo -u $SUDO_USER vim +PluginInstall +GoInstallBinaries +qall > /dev/null"
+        execute $vim_prefix "apt install -y ctags"
+        execute $vim_prefix "git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim"
+        execute $vim_prefix "cp vim/.vimrc $HOME/.vimrc"
+        execute $vim_prefix "vim +PluginInstall +GoInstallBinaries +qall > /dev/null"
 
         echo $vim_prefix end setup
 }
@@ -38,27 +37,13 @@ setup_golang(){
         echo $golang_prefix start setup
 
         # install golang by apt
-        execute $golang_prefix "apt install golang-go -y"
+        execute $golang_prefix "apt install -y golang-go"
         execute $golang_prefix "go env -w GOPROXY=https://goproxy.io,direct"
-        lineinfile "export GOPATH=/home/$SUDO_USER/go" "/home/$SUDO_USER/.bashrc"
-        lineinfile "export PATH="'$PATH'":/home/$SUDO_USER/go/bin" "/home/$SUDO_USER/.bashrc"
+        lineinfile "export GOPATH=$HOME/go" "$HOME/.bashrc"
+        lineinfile "export PATH="'$PATH'":$HOME/go/bin" "$HOME/.bashrc"
         echo $golang_prefix please relogin
         
         echo $golang_prefix end setup
-}
-
-setup_git(){
-        git_prefix="[git]"
-        echo "---"
-        echo $git_prefix start setup
-
-        # set git proxy
-	if [ ! -z $HTTP_PROXY ]; then
-        	execute $git_prefix "sudo -u $SUDO_USER git config --global http.proxy $HTTP_PROXY"
-       		execute $git_prefix "sudo -u $SUDO_USER git config --global https.proxy $HTTP_PROXY"
-	fi
-        
-        echo $git_prefix end setup
 }
 
 setup_podman(){
@@ -69,12 +54,9 @@ setup_podman(){
         execute $podman_prefix ". /etc/os-release"
         execute $podman_prefix "echo 'deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
         execute $podman_prefix "curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/Release.key | apt-key add -"
-        execute $podman_prefix "apt-get update"
+        execute $podman_prefix "apt update"
 	apt_params=""
-	if [ ! -z $HTTP_PROXY ]; then
-        	apt_params="-o Acquire::http::proxy="$HTTP_PROXY
-	fi
-        execute $podman_prefix "apt-get -y $apt_params install podman"
+        execute $podman_prefix "apt install -y podman"
         execute $podman_prefix "cp podman/registries.conf /etc/containers/registries.conf"
 
         echo $podman_prefix end setup
@@ -85,7 +67,7 @@ setup_tools(){
         echo "---"
         echo $tools_prefix start setup
 
-        execute $tools_prefix "apt install cloc zsh"
+        execute $tools_prefix "apt install -y cloc zsh"
 
         echo $tools_prefix end setup
 }
@@ -116,7 +98,6 @@ main(){
 	setup_tools
         setup_golang
         setup_podman
-	setup_git
         setup_vim
 }
 
